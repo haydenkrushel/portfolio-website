@@ -5,17 +5,37 @@ jupyter: python3
 ---
 ```{python}
 import leafmap
+from ipyleaflet import GeoJSON, SearchControl
 
-map = leafmap.Map(center=[42.8, -76.0], zoom=8)
+map = leafmap.Map(
+  center=[42.8, -76.0],
+  draw_control=False,
+  layers_control=True,
+  zoom=8
+)
+
+locations = GeoJSON(
+    data="data/cny_churches_2026.geojson",
+    name="Addresses"
+)
 
 map.add_marker_cluster(
-  "data/cny_churches_2026.csv",
+  "data/cny_churches_2026.geojson",
   x="Longitude",
   y="Latitude",
   popup=["Name",
-         "Address",
+         "Address_Search",
          "Website"],
   layer_name="CNY Churches" 
+)
+
+map.add(
+  SearchControl(
+    position="topleft",
+    layer="data/cny_churches_2026.geojson",
+    property_name="Address_Search",
+    zoom=15
+)
 )
 
 map
