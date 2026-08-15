@@ -44,7 +44,7 @@
     "href": "episcopal.html",
     "title": "episcopal",
     "section": "",
-    "text": "Code\nimport leafmap\n\nm = leafmap.Map(center=[42.8, -76.0], zoom=8)\nm",
+    "text": "Code\nimport leafmap\n\nmap = leafmap.Map(center=[42.8, -76.0], zoom=8)\n\nmap.add_marker_cluster(\n  \"data/cny_churches_2026.csv\",\n  x=\"Longitude\",\n  y=\"Latitude\",\n  popup=[\"Name\",\n         \"Address\",\n         \"Website\"],\n  layer_name=\"CNY Churches\" \n)\n\nmap",
     "crumbs": [
       "GIS Projects",
       "Mapping My Dioceseg"

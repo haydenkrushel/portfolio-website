@@ -6,6 +6,18 @@ jupyter: python3
 ```{python}
 import leafmap
 
-m = leafmap.Map(center=[42.8, -76.0], zoom=8)
-m
+map = leafmap.Map(center=[42.8, -76.0], zoom=8)
+
+map.add_marker_cluster(
+  "data/cny_churches_2026.csv",
+  x="Longitude",
+  y="Latitude",
+  popup=["Name",
+         "Address",
+         "Website"],
+  layer_name="CNY Churches" 
+)
+
+map
+
 ```
