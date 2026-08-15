@@ -2,9 +2,9 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Portfolio",
+    "title": "Home",
     "section": "",
-    "text": "This is a Quarto website. Testing pushing to GitHub!\nTo learn more about Quarto websites visit https://quarto.org/docs/websites.\n\n1 + 1\n\n[1] 2",
+    "text": "This is my home page. There will be an about me section, followed by links to GIS projects, photography, and my resume.\n\n\nCode\nprint(\"Hello World!\")\n\n\n[1] \"Hello World!\"",
     "crumbs": [
       "Home"
     ]
@@ -17,6 +17,36 @@
     "text": "About this site\n\n1 + 1\n\n[1] 2",
     "crumbs": [
       "About"
+    ]
+  },
+  {
+    "objectID": "resume.html",
+    "href": "resume.html",
+    "title": "Resume",
+    "section": "",
+    "text": "This is where I will post my resume. There will also be a button to download my resume as a PDF.",
+    "crumbs": [
+      "Resume"
+    ]
+  },
+  {
+    "objectID": "gis.html",
+    "href": "gis.html",
+    "title": "GIS Projects",
+    "section": "",
+    "text": "This is where I will post my GIS projects. This will be the landing page where each of my projects can be viewed. Here, each project will have a short description and a mention of the programs used.",
+    "crumbs": [
+      "GIS Projects"
+    ]
+  },
+  {
+    "objectID": "photography.html",
+    "href": "photography.html",
+    "title": "Photography",
+    "section": "",
+    "text": "This is where I will post my photography.",
+    "crumbs": [
+      "Photography"
     ]
   }
 ]

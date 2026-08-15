@@ -2,27 +2,28 @@ project:
   type: website
 
 website:
-  title: "Portfolio"
+  title: "Hayden Krushel's Portfolio"
   sidebar:
-    style: "docked"
+    style: "floating"
+    search: false
     contents:
       - text: "Home"
         href: index.qmd
       - text: "Resume"
         href: resume.qmd
-      - text: "GIS"
+      - text: "GIS Projects"
         href: gis.qmd
       - text: "Photography"
         href: photography.qmd
         
-        
 format:
   html:
+    code-fold: true
     theme:
       - cosmo
       - brand
+    mainfont: "Verdana"
     css: styles.css
     toc: true
-
 editor: visual
 

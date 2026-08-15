@@ -1,11 +1,9 @@
 ---
-title: "Portfolio"
+title: "Home"
 ---
 
-This is a Quarto website. Testing pushing to GitHub!
-
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+This is my home page. There will be an about me section, followed by links to GIS projects, photography, and my resume.
 
 ```{r}
-1 + 1
+print("Hello World!")
 ```
