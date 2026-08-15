@@ -1,0 +1,11 @@
+---
+title: "episcopal"
+format: html
+jupyter: python3
+---
+```{python}
+import leafmap
+
+m = leafmap.Map(center=[42.8, -76.0], zoom=8)
+m
+```

@@ -44,10 +44,10 @@
     "href": "episcopal.html",
     "title": "episcopal",
     "section": "",
-    "text": "Evening Prayer Flyer",
+    "text": "Code\nimport leafmap\n\nm = leafmap.Map(center=[42.8, -76.0], zoom=8)\nm",
     "crumbs": [
       "GIS Projects",
-      "Visualizing the Episcopal Church"
+      "Mapping My Dioceseg"
     ]
   }
 ]
