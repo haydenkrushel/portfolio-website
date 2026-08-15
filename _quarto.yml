@@ -6,15 +6,30 @@ website:
   sidebar:
     style: "floating"
     search: false
+    collapse-level: 1
     contents:
       - text: "Home"
         href: index.qmd
       - text: "Resume"
         href: resume.qmd
-      - text: "GIS Projects"
+        
+      - section:
+        text: "GIS Projects"
         href: gis.qmd
-      - text: "Photography"
+        contents:
+          - text: "Mapping My Dioceseg"
+            href: episcopal.qmd
+          
+      - section: 
+        text: "Photography"
         href: photography.qmd
+        contents:
+         - text: "Architecture"
+           href: architecture.qmd
+         - text: "Streetscape"
+           href: streetscape.qmd
+         - text: "Landscape"
+           href: landscape.qmd
         
 format:
   html:

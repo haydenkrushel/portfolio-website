@@ -1,5 +1,15 @@
 [
   {
+    "objectID": "photography.html",
+    "href": "photography.html",
+    "title": "Photography",
+    "section": "",
+    "text": "This is where I will post my photography.",
+    "crumbs": [
+      "Photography"
+    ]
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Home",
@@ -7,26 +17,6 @@
     "text": "This is my home page. There will be an about me section, followed by links to GIS projects, photography, and my resume.\n\n\nCode\nprint(\"Hello World!\")\n\n\n[1] \"Hello World!\"",
     "crumbs": [
       "Home"
-    ]
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "About this site\n\n1 + 1\n\n[1] 2",
-    "crumbs": [
-      "About"
-    ]
-  },
-  {
-    "objectID": "resume.html",
-    "href": "resume.html",
-    "title": "Resume",
-    "section": "",
-    "text": "This is where I will post my resume. There will also be a button to download my resume as a PDF.",
-    "crumbs": [
-      "Resume"
     ]
   },
   {
@@ -40,13 +30,24 @@
     ]
   },
   {
-    "objectID": "photography.html",
-    "href": "photography.html",
-    "title": "Photography",
+    "objectID": "resume.html",
+    "href": "resume.html",
+    "title": "Resume",
     "section": "",
-    "text": "This is where I will post my photography.",
+    "text": "This is where I will post my resume. There will also be a button to download my resume as a PDF.",
     "crumbs": [
-      "Photography"
+      "Resume"
+    ]
+  },
+  {
+    "objectID": "episcopal.html",
+    "href": "episcopal.html",
+    "title": "episcopal",
+    "section": "",
+    "text": "Evening Prayer Flyer",
+    "crumbs": [
+      "GIS Projects",
+      "Visualizing the Episcopal Church"
     ]
   }
 ]
