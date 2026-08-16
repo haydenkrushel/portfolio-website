@@ -4,7 +4,7 @@
     "href": "photography.html",
     "title": "Photography",
     "section": "",
-    "text": "This is where I will post my photography.",
+    "text": "This is where I will post my photography. This will be a landing page where each type of photography can be accessed.",
     "crumbs": [
       "Photography"
     ]
@@ -42,12 +42,12 @@
   {
     "objectID": "episcopal.html",
     "href": "episcopal.html",
-    "title": "episcopal",
+    "title": "Mapping My Diocese",
     "section": "",
-    "text": "Code\nimport geopandas as gpd\nimport folium\nimport leafmap.foliumap as leafmap\nfrom folium.plugins import Search\n\ngeojson_file = \"data/cny_churches_2026.geojson\"\n\ngdf = gpd.read_file(geojson_file)\n\nm = leafmap.Map(\n    center=[42.45, -76.5],\n    zoom=9,\n    basemap=\"OpenStreetMap\",\n    width=\"70%\",\n    height=\"700px\",\n)\n\n# Add churches as actual map markers\nchurches = folium.GeoJson(\n    gdf.to_json(),\n    name=\"Diocese of Central NY Churches\",\n    popup=folium.GeoJsonPopup(\n        fields=[\n            \"Name\",\n            \"Address\",\n            \"County\",\n            \"Website\",\n        ],\n        aliases=[\n            \"Church:\",\n            \"Address:\",\n            \"County:\",\n            \"Website:\",\n        ],\n        localize=True,\n        labels=True,\n    ),\n    tooltip=folium.GeoJsonTooltip(\n        fields=[\"Name\"],\n        aliases=[\"Church:\"],\n    ),\n    marker=folium.Marker(\n        icon=folium.Icon(\n           icon=\"map-marker\",\n           prefix=\"fa\",\n           color=\"blue\",\n           )\n    )\n)\nchurches.add_to(m)\n\n# Search the same layer\nSearch(\n    layer=churches,\n    search_label=\"Address_Search\",\n    geom_type=\"Point\",\n    placeholder=\"Search addresses...\",\n    collapsed=False,\n    position=\"topleft\",\n    search_zoom=15,\n).add_to(m)\n\nm.add_geojson(\n    \"data/cny_diocese_counties.geojson\",\n    layer_name=\"Diocese of Central NY Counties\",\n    style={\n        \"color\": \"#186420\",\n        \"weight\": 2,\n        \"fillColor\": \"#186420\",\n        \"fillOpacity\": 0.10,\n    },\n    interactive=False\n)\n\nm",
+    "text": "TO DO: Fix CSV by adding possession in names, general EC website for churches without websites\nPage Order: 1. The Diocese [1] 2. Geography of the Diocese [2] 3. Where are the Churches [3] + 4. History of the Diocese 5. Where are the People [4] 6. Church Coverage [5] 7. Changing Populations [6] 8. Gaps in Service [7] 8. Census Data [8]\nMaps to add: General map of the Diocese showing major cities, roads, land features (static) [1] Topo map (static) [2] Map of census districts by population (static) [4] Buffer map of distance from Episcopal churches (static) [5] Population change by census tract (percent and absolute) (static) [6] Suitability analysis combining distance from church and higher population census tracts (static) [7]\nGeneral interactive map (interactive) [3] Demographic characteristics by census tract (interactive)\n\n\nCode\nimport geopandas as gpd\nimport folium\nimport leafmap.foliumap as leafmap\nfrom folium.plugins import Search\n\nchurches_file = \"data/cny_churches_2026.geojson\"\ncounties_file = \"data/cny_diocese_counties.geojson\"\n\nchurches_gdf = gpd.read_file(churches_file)\ncounties_gdf = gpd.read_file(counties_file)\n\nm = leafmap.Map(\n    center=[42.45, -76.5],\n    zoom=9,\n    width=\"70%\",\n    height=\"700px\",\n)\nm.add_basemap(\"ROADMAP\")\n\n# Add counties\ncounties = folium.GeoJson(\n    counties_gdf,\n    name=\"Counties\",\n    style_function=lambda feature: {\n        \"fillColor\": \"#3388ff\",\n        \"fillOpacity\": 0.10,\n        \"color\": \"#555555\",\n        \"weight\": 1,\n    },\n    interactive=False,\n)\ncounties.add_to(m)\n\n# Add churches as actual map markers\nchurches = folium.GeoJson(\n    churches_gdf.to_json(),\n    name=\"Diocese of Central NY Churches\",\n    popup=folium.GeoJsonPopup(\n        fields=[\n            \"Name\",\n            \"Address\",\n            \"County\",\n            \"Website\",\n        ],\n        aliases=[\n            \"Church:\",\n            \"Address:\",\n            \"County:\",\n            \"Website:\",\n        ],\n        localize=True,\n        labels=True,\n    ),\n    tooltip=folium.GeoJsonTooltip(\n        fields=[\"Name\"],\n        aliases=[\"Church:\"],\n    ),\n    marker = folium.CircleMarker(\n        radius=7,\n        color=\"white\",\n        weight=2,\n        fill=True,\n        fill_color=\"blue\",\n        fill_opacity=0.9,\n    )\n)\nchurches.add_to(m)\n\n# Search the same layer\nSearch(\n    layer=churches,\n    search_label=\"Address_Search\",\n    geom_type=\"Point\",\n    placeholder=\"Search name or addresses...\",\n    collapsed=False,\n    position=\"topleft\",\n    search_zoom=15,\n).add_to(m)\n\nm",
     "crumbs": [
       "GIS Projects",
-      "Mapping My Dioceses"
+      "Mapping My Diocese"
     ]
   }
 ]
