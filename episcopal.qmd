@@ -4,8 +4,79 @@ format: html
 jupyter: python3
 ---
 ```{python}
-import leafmap
+import geopandas as gpd
+import folium
+import leafmap.foliumap as leafmap
+from folium.plugins import Search
 
-m = leafmap.Map(center=[42.8, -76.0], zoom=8)
+geojson_file = "data/cny_churches_2026.geojson"
+
+gdf = gpd.read_file(geojson_file)
+
+m = leafmap.Map(
+    center=[42.45, -76.5],
+    zoom=9,
+    basemap="OpenStreetMap",
+    width="70%",
+    height="700px",
+)
+
+# Add churches as actual map markers
+churches = folium.GeoJson(
+    gdf.to_json(),
+    name="Diocese of Central NY Churches",
+    popup=folium.GeoJsonPopup(
+        fields=[
+            "Name",
+            "Address",
+            "County",
+            "Website",
+        ],
+        aliases=[
+            "Church:",
+            "Address:",
+            "County:",
+            "Website:",
+        ],
+        localize=True,
+        labels=True,
+    ),
+    tooltip=folium.GeoJsonTooltip(
+        fields=["Name"],
+        aliases=["Church:"],
+    ),
+    marker=folium.Marker(
+        icon=folium.Icon(
+           icon="map-marker",
+           prefix="fa",
+           color="blue",
+           )
+    )
+)
+churches.add_to(m)
+
+# Search the same layer
+Search(
+    layer=churches,
+    search_label="Address_Search",
+    geom_type="Point",
+    placeholder="Search addresses...",
+    collapsed=False,
+    position="topleft",
+    search_zoom=15,
+).add_to(m)
+
+m.add_geojson(
+    "data/cny_diocese_counties.geojson",
+    layer_name="Diocese of Central NY Counties",
+    style={
+        "color": "#186420",
+        "weight": 2,
+        "fillColor": "#186420",
+        "fillOpacity": 0.10,
+    },
+    interactive=False
+)
+
 m
 ```

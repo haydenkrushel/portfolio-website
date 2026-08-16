@@ -1,0 +1,78 @@
+{
+  "cells": [
+    {
+      "cell_type": "raw",
+      "metadata": {},
+      "source": [
+        "---\n",
+        "title: episcopal\n",
+        "format: html\n",
+        "---"
+      ],
+      "id": "98e2d982"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "import json\n",
+        "import leafmap\n",
+        "from ipyleaflet import GeoJSON, SearchControl\n",
+        "\n",
+        "geojson_file = \"data/cny_churches_2026.geojson\"\n",
+        "\n",
+        "with open(geojson_file, \"r\") as f:\n",
+        "    geojson_dict = json.load(f)\n",
+        "\n",
+        "search_layer = GeoJSON(\n",
+        "    data=geojson_dict,\n",
+        "    name=\"Search\"\n",
+        ")\n",
+        "\n",
+        "map.add(search_layer)\n",
+        "    style={\n",
+        "        \"opacity\": 0,\n",
+        "        \"fillOpacity\": 0\n",
+        "    })\n",
+        "\n",
+        "# Add marker cluster\n",
+        "points = map.add_marker_cluster(\n",
+        "    geojson_file,\n",
+        "    x=\"longitude\",\n",
+        "    y=\"latitude\",\n",
+        "    popup=[\n",
+        "        \"Name\",\n",
+        "        \"Address_Search\",\n",
+        "        \"Website\"\n",
+        "    ],\n",
+        "    layer_name=\"CNY Churches\"\n",
+        ")\n",
+        "\n",
+        "# Add search control using the actual GeoJSON layer\n",
+        "map.add(\n",
+        "    SearchControl(\n",
+        "        position=\"topleft\",\n",
+        "        layer=search_layergroup,\n",
+        "        property_name=\"Address_Search\",\n",
+        "        zoom=15\n",
+        "    )\n",
+        ")\n",
+        "\n",
+        "map"
+      ],
+      "id": "52e0e163",
+      "execution_count": null,
+      "outputs": []
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "name": "python3",
+      "language": "python",
+      "display_name": "Python 3 (ipykernel)",
+      "path": "C:\\Users\\hayha\\miniconda3\\share\\jupyter\\kernels\\python3"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}
