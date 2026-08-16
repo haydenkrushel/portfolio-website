@@ -3,4 +3,4 @@ title: "Photography"
 format: html
 ---
 
-This is where I will post my photography.
+This is where I will post my photography. This will be a landing page where each type of photography can be accessed.

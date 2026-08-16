@@ -1,8 +1,36 @@
 ---
-title: "episcopal"
+title: "Mapping My Diocese"
 format: html
 jupyter: python3
 ---
+TO DO:
+Fix CSV by adding possession in names, general EC website for churches without websites
+
+
+Page Order:
+1. The Diocese [1]
+2. Geography of the Diocese [2]
+3. Where are the Churches [3] + 
+4. History of the Diocese
+5. Where are the People [4]
+6. Church Coverage [5]
+7. Changing Populations [6]
+8. Gaps in Service [7]
+8. Census Data [8]
+
+Maps to add:
+General map of the Diocese showing major cities, roads, land features (static) [1]
+Topo map (static) [2]
+Map of census districts by population (static) [4]
+Buffer map of distance from Episcopal churches (static) [5]
+Population change by census tract (percent and absolute) (static) [6]
+Suitability analysis combining distance from church and higher population census tracts (static) [7]
+
+General interactive map (interactive) [3]
+Demographic characteristics by census tract (interactive)
+
+
+
 ```{python}
 import geopandas as gpd
 import folium

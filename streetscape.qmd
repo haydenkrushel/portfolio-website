@@ -1,4 +1,4 @@
 ---
-title: "streetscape"
+title: "Streetscape Photography"
 format: html
 ---

@@ -1,4 +1,4 @@
 ---
-title: "landscape"
+title: "Landscape Photography"
 format: html
 ---

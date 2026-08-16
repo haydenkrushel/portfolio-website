@@ -17,7 +17,7 @@ website:
         text: "GIS Projects"
         href: gis.qmd
         contents:
-          - text: "Mapping My Dioceseg"
+          - text: "Mapping My Dioceses"
             href: episcopal.qmd
           
       - section: 

@@ -1,4 +1,4 @@
 ---
-title: "architecture"
+title: "Architecture Photography"
 format: html
 ---
