@@ -37,12 +37,15 @@ import folium
 import leafmap.foliumap as leafmap
 from folium.plugins import Search
 
+# Add files +
 churches_file = "data/cny_churches_2026.geojson"
 counties_file = "data/cny_diocese_counties.geojson"
 
+# Assign files +
 churches_gdf = gpd.read_file(churches_file)
 counties_gdf = gpd.read_file(counties_file)
 
+# Create map +
 m = leafmap.Map(
     center=[42.45, -76.5],
     zoom=9,
@@ -50,6 +53,8 @@ m = leafmap.Map(
     height="700px",
 )
 m.add_basemap("ROADMAP")
+
+# Add census tracts
 
 # Add counties
 counties = folium.GeoJson(
@@ -91,11 +96,11 @@ churches = folium.GeoJson(
     ),
     marker = folium.CircleMarker(
         radius=7,
-        color="white",
+        color="black",
         weight=2,
         fill=True,
-        fill_color="blue",
-        fill_opacity=0.9,
+        fill_color="#0070ff",
+        fill_opacity=1
     )
 )
 churches.add_to(m)
@@ -105,11 +110,13 @@ Search(
     layer=churches,
     search_label="Address_Search",
     geom_type="Point",
-    placeholder="Search name or addresses...",
+    placeholder="Search by name or address...",
     collapsed=False,
     position="topleft",
     search_zoom=15,
 ).add_to(m)
+
+# TESTING OUT NEW CODE
 
 m
 ```
