@@ -33,6 +33,7 @@ website:
         
 format:
   html:
+    lightbox: true
     code-fold: true
     theme:
       - cosmo

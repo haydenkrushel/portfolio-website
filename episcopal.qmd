@@ -3,120 +3,94 @@ title: "Mapping My Diocese"
 format: html
 jupyter: python3
 ---
-TO DO:
-Fix CSV by adding possession in names, general EC website for churches without websites
+Nestled deep among glacial valleys and small farms, the Episcopal Diocese of Central New York serves over 8,500 baptized members across 74 active congregations (https://cnyepiscopal.org/welcome/#who-we-are). Since 2023 I've been one of these members, attending services at my university's chaplaincy during the school year. In 2025 I was honored to attend my diocese's annual convention, where I was shocked to find demographics very different than that of my own parish. Most in attendance were seniors and overwhelmingly white. I gave more thought to my reaction, and realized that I knew very little about my diocese and the people who compose it. This exploration then is an attempt to better understand the people and the land of my diocese.
 
+UPDATE maps below with smaller church icons
 
-Page Order:
-1. The Diocese [1]
-2. Geography of the Diocese [2]
-3. Where are the Churches [3] + 
-4. History of the Diocese
-5. Where are the People [4]
-6. Church Coverage [5]
-7. Changing Populations [6]
-8. Gaps in Service [7]
-8. Census Data [8]
+# Landscape
+To understand the Church today, it is wise to look into its history. The Episcopal Church is a member of the world-wide Anglican Communion...
 
-Maps to add:
-General map of the Diocese showing major cities, roads, land features (static) [1]
-Topo map (static) [2]
-Map of census districts by population (static) [4]
-Buffer map of distance from Episcopal churches (static) [5]
-Population change by census tract (percent and absolute) (static) [6]
-Suitability analysis combining distance from church and higher population census tracts (static) [7]
+# Race
 
-General interactive map (interactive) [3]
-Demographic characteristics by census tract (interactive)
+::: {.column-page layout-ncol="4"}
+![Figure 1: Map of the Percent Black Population by Census Tract](maps/CNY_Black_Pct.png){width=450}
 
+![Figure 2: Map of the Percent White Population by Census Tract](maps/CNY_White_Pct.png){width=450}
 
+![Figure 3: Map of the Percent Asian Population by Census Tract](maps/CNY_Asian_Pct.png){width=450}
+
+![Figure 4: Map of the Percent Two or More Races Population by Census Tract](maps/CNY_Two_Pct.png){width=450}
+
+:::
+
+# Age
+::: {.column-page layout-ncol="5"}
+![Figure 5: Map of the Percent Youth Population by Census Tract](maps/CNY_Youth_Pct.png){width=450}
+
+![Figure 6: Map of the Percent Young Adult Population by Census Tract](maps/CNY_Young_Adult_Pct.png){width=450}
+
+![Figure 7: Map of the Percent Adult Population by Census Tract](maps/CNY_Adult_Pct.png){width=450}
+
+![Figure 8: Map of the Percent Older Adult Population by Census Tract](maps/CNY_Older_Adult_Pct.png){width=450}
+
+![Figure 9: Map of the Percent Senior Population by Census Tract](maps/CNY_Senior_Pct.png){width=450}
+:::
+# Economic Status
+::: {.column-page layout-ncol="3"}
+
+![Figure 10: Map of Median Income by Census Tract](maps/CNY_Median_Inc.png){width=325}
+
+![Figure 11: Map of the Percent Below the Poverty Line by Census Tract](maps/CNY_Poverty_Pct.png){width=325}
+
+![Figure 12: Map of the Unemployment Rate by Census Tract](maps/CNY_Unemployment_Pct.png){width=325}
+
+:::
+# Nativity
+::: {.layout-ncol="3"}
+
+![Figure 13: Map of Percent Foreign Born Population by Census Tract](maps/CNY_Foreign_Pct.png){width=325}
+
+:::
+
+# Educational Attainment
+
+::: {.column-page layout-ncol="3"}
+
+![Figure 14: Map of Percent High School Degree Attainment by Census Tract](maps/CNY_Highschool_Pct.png){width=325}
+
+![Figure 15: Map of Percent Bachelor Degree Attainment by Census Tract](maps/CNY_Bachelor_Pct.png){width=325}
+
+![Figure 16: Map of Percent Graduate Degree Attainment by Census Tract](maps/CNY_Graduate_Pct.png){width=325}
+
+:::
+
+[History]
+[Land (DEM, Land Use/Cover)]
+[Churches (ASA, Pledge and Plate, Stability?)]
+[Census Data {(At Least Highschool, At Least Bachelors, At Least Grad school},{Median Income, Unemployment, Poverty},{Foreign Born},{Youth, Adults, , Seniors},{White, Black, Asian, Native, Pacific Islander, Hispanic, Two} )]
 
 ```{python}
+
+import numpy as np
 import geopandas as gpd
-import folium
-import leafmap.foliumap as leafmap
-from folium.plugins import Search
+import leafmap
+from branca.colormap import linear
 
-# Add files +
-churches_file = "data/cny_churches_2026.geojson"
-counties_file = "data/cny_diocese_counties.geojson"
 
-# Assign files +
-churches_gdf = gpd.read_file(churches_file)
-counties_gdf = gpd.read_file(counties_file)
+file = "data/cny_census_percentages.geojson"
 
-# Create map +
-m = leafmap.Map(
-    center=[42.45, -76.5],
-    zoom=9,
-    width="70%",
-    height="700px",
-)
-m.add_basemap("ROADMAP")
+gdf = gpd.read_file(file)
 
-# Add census tracts
+columns = [
+    'NHISP_PER', 'WHITE_PER', 'BLACK_PER', 'NATIVE_PER',
+    'ASIAN_PER', 'PACISL_PER', 'OTHER_PER', 'TWO_PER',
+    'HISP_PER', 'ATL_HGH_PER', 'ATL_ASSOC_PER', 'ATL_BACH_PER',
+    'ATL_MAST_PER', 'ATL_DOCT_PER', 'LABOR_PER', 'EMPL_PER',
+    'UNEMPL_PER', 'ARM_PER', 'OWN_HOUS_PER', 'RENT_HOUS_PER',
+    'NAT_BRN_PER', 'FRGN_BRN_PER', 'YTH_PER', 'YNG_ADLT_PER',
+    'ADLT_PER', 'OLD_ADLT_PER', 'SENR_PER', 'POV_PER'
+]
 
-# Add counties
-counties = folium.GeoJson(
-    counties_gdf,
-    name="Counties",
-    style_function=lambda feature: {
-        "fillColor": "#3388ff",
-        "fillOpacity": 0.10,
-        "color": "#555555",
-        "weight": 1,
-    },
-    interactive=False,
-)
-counties.add_to(m)
+cmap = linear.OrRd_09.scale(0, 100)
 
-# Add churches as actual map markers
-churches = folium.GeoJson(
-    churches_gdf.to_json(),
-    name="Diocese of Central NY Churches",
-    popup=folium.GeoJsonPopup(
-        fields=[
-            "Name",
-            "Address",
-            "County",
-            "Website",
-        ],
-        aliases=[
-            "Church:",
-            "Address:",
-            "County:",
-            "Website:",
-        ],
-        localize=True,
-        labels=True,
-    ),
-    tooltip=folium.GeoJsonTooltip(
-        fields=["Name"],
-        aliases=["Church:"],
-    ),
-    marker = folium.CircleMarker(
-        radius=7,
-        color="black",
-        weight=2,
-        fill=True,
-        fill_color="#0070ff",
-        fill_opacity=1
-    )
-)
-churches.add_to(m)
-
-# Search the same layer
-Search(
-    layer=churches,
-    search_label="Address_Search",
-    geom_type="Point",
-    placeholder="Search by name or address...",
-    collapsed=False,
-    position="topleft",
-    search_zoom=15,
-).add_to(m)
-
-# TESTING OUT NEW CODE
-
-m
 ```
