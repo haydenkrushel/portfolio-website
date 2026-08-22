@@ -1,0 +1,53 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Home",
+    "section": "",
+    "text": "This is my home page. There will be an about me section, followed by links to GIS projects, photography, and my resume.\n\n\nCode\nprint(\"Hello World!\")\n\n\n[1] \"Hello World!\"",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "photography.html",
+    "href": "photography.html",
+    "title": "Photography",
+    "section": "",
+    "text": "This is where I will post my photography. This will be a landing page where each type of photography can be accessed.",
+    "crumbs": [
+      "Photography"
+    ]
+  },
+  {
+    "objectID": "gis.html",
+    "href": "gis.html",
+    "title": "GIS Projects",
+    "section": "",
+    "text": "This is where I will post my GIS projects. This will be the landing page where each of my projects can be viewed. Here, each project will have a short description and a mention of the programs used.",
+    "crumbs": [
+      "GIS Projects"
+    ]
+  },
+  {
+    "objectID": "episcopal.html",
+    "href": "episcopal.html",
+    "title": "Mapping My Diocese",
+    "section": "",
+    "text": "Nestled deep among glacial valleys and small farms, the Episcopal Diocese of Central New York serves over 8,500 baptized members across 74 active congregations (https://cnyepiscopal.org/welcome/#who-we-are). Since 2023 I’ve been one of these members, attending services at my university’s chaplaincy during the school year. In 2025 I was honored to attend my diocese’s annual convention, where I was shocked to find demographics very different than that of my own parish. Most in attendance were seniors and overwhelmingly white. I gave more thought to my reaction, and realized that I knew very little about my diocese and the people who compose it. This exploration then is an attempt to better understand the people and the land of my diocese.\n\nLandscape\nTo understand the Church today, it is wise to look into its history. The Episcopal Church is a member of the world-wide Anglican Communion…\n\n\nCode\nimport leafmap\nfrom ipyleaflet import basemaps, basemap_to_tiles, FullScreenControl\n\nchurches = \"data/cny_churches_2026.geojson\"\nborders = \"data/cny_diocese_borders.geojson\"\n\nsatellite = basemap_to_tiles(basemaps.Esri.WorldImagery)\nsatellite.name = \"Satellite\"\nsatellite.base = True\n\ntopo = basemap_to_tiles(basemaps.OpenTopoMap)\ntopo.name = \"Topographic\"\ntopo.base = True\n\nmap = leafmap.Map(\n  center=[43.2, -76.0],\n  zoom=8,\n  min_zoom=7,\n  draw_control=False,\n  toolbar_control=False,\n  fullscreen_control=False,\n  height=\"700px\",\n  width=\"600px\",\n)\n\nmap.add_layer(satellite)\nmap.add_layer(topo)\n\nmap.add_layer_control(position=\"topright\")\n\nmap.add_control(FullScreenControl(position=\"topright\"))\n\nmap.add_circle_markers_from_xy(\n  churches,\n  x=\"longitude\",\n  y=\"latitude\",\n  layer_name=\"Episcopal Churches\",\n  popup=[\"Name\", \"Address\", \"Website\"],\n  radius=6,\n  color=\"black\",\n  weight=2,\n  fill_color=\"#0070FF\",\n  fill_opacity=1.0\n)\n\nstyle = {\n  \"color\": \"#FF0000\",\n  \"weight\": 2,\n  \"fillColor\": \"#FF0000\",\n  \"fillOpacity\": 0\n}\n\nhover_style = {\n  \"color\": \"#FF0000\",\n  \"weight\": 2,\n  \"fillColor\": \"#FF0000\",\n  \"fillOpacity\": 0\n}\n\nmap.add_vector(\n  borders,\n  layer_name=\"Diocesan Borders\",\n  style=style,\n  hover_style=hover_style,\n  info_mode=None\n)\n\nmap\n\n\n\nInteractive Map of Churches in the Diocese of Central New York\n\n\n\n\nRace and Ethnicity\n\n\n\n\n\n\nFigure 1: Map of the Percent Black Population by Census Tract\n\n\n\n\n\n\n\nFigure 2: Map of the Percent White Population by Census Tract\n\n\n\n\n\n\n\nFigure 3: Map of the Percent Asian Population by Census Tract\n\n\n\n\n\n\n\nFigure 4: Map of the Percent Two or More Races Population by Census Tract\n\n\n\n\n\n\n\nFigure 5: Map of the Percent Hispanic Population by Census Tract\n\n\n\n\n\n\n\nAge\n\n\n\n\n\n\nFigure 5: Map of the Percent Youth Population by Census Tract\n\n\n\n\n\n\n\nFigure 6: Map of the Percent Young Adult Population by Census Tract\n\n\n\n\n\n\n\nFigure 7: Map of the Percent Adult Population by Census Tract\n\n\n\n\n\n\n\nFigure 8: Map of the Percent Older Adult Population by Census Tract\n\n\n\n\n\n\n\nFigure 9: Map of the Percent Senior Population by Census Tract\n\n\n\n\n\n\n\nEconomic Status\n\n\n\n\n\n\nFigure 10: Map of Median Income by Census Tract\n\n\n\n\n\n\n\nFigure 11: Map of the Percent Below the Poverty Line by Census Tract\n\n\n\n\n\n\n\nFigure 12: Map of the Unemployment Rate by Census Tract\n\n\n\n\n\n\n\nNativity\n\n\n\n\nFigure 13: Map of Percent Foreign Born Population by Census Tract\n\n\n\n\n\nEducational Attainment\n\n\n\n\n\n\nFigure 14: Map of Percent High School Degree Attainment by Census Tract\n\n\n\n\n\n\n\nFigure 15: Map of Percent Bachelor Degree Attainment by Census Tract\n\n\n\n\n\n\n\nFigure 16: Map of Percent Graduate Degree Attainment by Census Tract",
+    "crumbs": [
+      "GIS Projects",
+      "Mapping My Diocese"
+    ]
+  },
+  {
+    "objectID": "resume.html",
+    "href": "resume.html",
+    "title": "Resume",
+    "section": "",
+    "text": "This is where I will post my resume. There will also be a button to download my resume as a PDF.",
+    "crumbs": [
+      "Resume"
+    ]
+  }
+]
