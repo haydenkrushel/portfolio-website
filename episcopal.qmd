@@ -5,14 +5,85 @@ jupyter: python3
 ---
 Nestled deep among glacial valleys and small farms, the Episcopal Diocese of Central New York serves over 8,500 baptized members across 74 active congregations (https://cnyepiscopal.org/welcome/#who-we-are). Since 2023 I've been one of these members, attending services at my university's chaplaincy during the school year. In 2025 I was honored to attend my diocese's annual convention, where I was shocked to find demographics very different than that of my own parish. Most in attendance were seniors and overwhelmingly white. I gave more thought to my reaction, and realized that I knew very little about my diocese and the people who compose it. This exploration then is an attempt to better understand the people and the land of my diocese.
 
-UPDATE maps below with smaller church icons
-
 # Landscape
 To understand the Church today, it is wise to look into its history. The Episcopal Church is a member of the world-wide Anglican Communion...
 
-# Race
+```{python}
+#| fig-cap: "Interactive Map of Churches in the Diocese of Central New York"
 
-::: {.column-page layout-ncol="4"}
+import leafmap
+from ipyleaflet import basemaps, basemap_to_tiles, FullScreenControl
+
+churches = "data/cny_churches_2026.geojson"
+borders = "data/cny_diocese_borders.geojson"
+
+satellite = basemap_to_tiles(basemaps.Esri.WorldImagery)
+satellite.name = "Satellite"
+satellite.base = True
+
+topo = basemap_to_tiles(basemaps.OpenTopoMap)
+topo.name = "Topographic"
+topo.base = True
+
+map = leafmap.Map(
+  center=[43.2, -76.0],
+  zoom=8,
+  min_zoom=7,
+  draw_control=False,
+  toolbar_control=False,
+  fullscreen_control=False,
+  height="700px",
+  width="600px",
+)
+
+map.add_layer(satellite)
+map.add_layer(topo)
+
+map.add_layer_control(position="topright")
+
+map.add_control(FullScreenControl(position="topright"))
+
+map.add_circle_markers_from_xy(
+  churches,
+  x="longitude",
+  y="latitude",
+  layer_name="Episcopal Churches",
+  popup=["Name", "Address", "Website"],
+  radius=6,
+  color="black",
+  weight=2,
+  fill_color="#0070FF",
+  fill_opacity=1.0
+)
+
+style = {
+  "color": "#FF0000",
+  "weight": 2,
+  "fillColor": "#FF0000",
+  "fillOpacity": 0
+}
+
+hover_style = {
+  "color": "#FF0000",
+  "weight": 2,
+  "fillColor": "#FF0000",
+  "fillOpacity": 0
+}
+
+map.add_vector(
+  borders,
+  layer_name="Diocesan Borders",
+  style=style,
+  hover_style=hover_style,
+  info_mode=None
+)
+
+map
+```
+
+# Race and Ethnicity
+
+::: {.column-page layout-ncol="5"}
 ![Figure 1: Map of the Percent Black Population by Census Tract](maps/CNY_Black_Pct.png){width=450}
 
 ![Figure 2: Map of the Percent White Population by Census Tract](maps/CNY_White_Pct.png){width=450}
@@ -20,6 +91,8 @@ To understand the Church today, it is wise to look into its history. The Episcop
 ![Figure 3: Map of the Percent Asian Population by Census Tract](maps/CNY_Asian_Pct.png){width=450}
 
 ![Figure 4: Map of the Percent Two or More Races Population by Census Tract](maps/CNY_Two_Pct.png){width=450}
+
+![Figure 5: Map of the Percent Hispanic Population by Census Tract](maps/CNY_Hispanic_Pct.png){width=450}
 
 :::
 
@@ -63,34 +136,3 @@ To understand the Church today, it is wise to look into its history. The Episcop
 ![Figure 16: Map of Percent Graduate Degree Attainment by Census Tract](maps/CNY_Graduate_Pct.png){width=325}
 
 :::
-
-[History]
-[Land (DEM, Land Use/Cover)]
-[Churches (ASA, Pledge and Plate, Stability?)]
-[Census Data {(At Least Highschool, At Least Bachelors, At Least Grad school},{Median Income, Unemployment, Poverty},{Foreign Born},{Youth, Adults, , Seniors},{White, Black, Asian, Native, Pacific Islander, Hispanic, Two} )]
-
-```{python}
-
-import numpy as np
-import geopandas as gpd
-import leafmap
-from branca.colormap import linear
-
-
-file = "data/cny_census_percentages.geojson"
-
-gdf = gpd.read_file(file)
-
-columns = [
-    'NHISP_PER', 'WHITE_PER', 'BLACK_PER', 'NATIVE_PER',
-    'ASIAN_PER', 'PACISL_PER', 'OTHER_PER', 'TWO_PER',
-    'HISP_PER', 'ATL_HGH_PER', 'ATL_ASSOC_PER', 'ATL_BACH_PER',
-    'ATL_MAST_PER', 'ATL_DOCT_PER', 'LABOR_PER', 'EMPL_PER',
-    'UNEMPL_PER', 'ARM_PER', 'OWN_HOUS_PER', 'RENT_HOUS_PER',
-    'NAT_BRN_PER', 'FRGN_BRN_PER', 'YTH_PER', 'YNG_ADLT_PER',
-    'ADLT_PER', 'OLD_ADLT_PER', 'SENR_PER', 'POV_PER'
-]
-
-cmap = linear.OrRd_09.scale(0, 100)
-
-```
